@@ -40,7 +40,7 @@ class Console {
 						Integer parkID = scanner.nextInt();
 						scanner.nextLine();
 						Park park = ws.searchPark(parkID);
-						System.out.println("     Name: "+park.getNome()+", "+park.getProvincie()+" -- "+park.getComuni());
+						System.out.println("     Name: "+park.getNome()+" - "+park.getSuperficie()+"hectare, "+park.getProvincie()+" -- "+park.getComuni());
 						System.out.println("       Rated " + ws.getParkVote(parkID) );
 						List<Review> reviews = ws.getParkReviews(parkID);
 						for (Review review : reviews) {
@@ -53,7 +53,7 @@ class Console {
 						List<Park> parks = ws.searchParks(name);
 						System.out.println("Found "+parks.size()+" results.");
 						for (Park park : parks) {
-							System.out.println("    ID: " + park.getId() + " Name: " + park.getNome() + ", " + park.getProvincie()+ " -- " + park.getComuni());
+							System.out.println("    ID: " + park.getId() + " Name: " + park.getNome()+" - "+park.getSuperficie()+"hectare, " + park.getProvincie()+ " -- " + park.getComuni());
 						}
 					}
 				}

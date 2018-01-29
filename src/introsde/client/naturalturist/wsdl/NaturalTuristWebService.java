@@ -41,6 +41,21 @@ public interface NaturalTuristWebService {
      * 
      * @param arg0
      * @return
+     *     returns java.util.List<introsde.client.naturalturist.wsdl.Park>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "searchParks", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchParks")
+    @ResponseWrapper(localName = "searchParksResponse", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchParksResponse")
+    @Action(input = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchParksRequest", output = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchParksResponse")
+    public List<Park> searchParks(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
      *     returns introsde.client.naturalturist.wsdl.Park
      */
     @WebMethod
@@ -63,6 +78,21 @@ public interface NaturalTuristWebService {
     @ResponseWrapper(localName = "getAllShedsResponse", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.GetAllShedsResponse")
     @Action(input = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/getAllShedsRequest", output = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/getAllShedsResponse")
     public List<Shed> getAllSheds();
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<introsde.client.naturalturist.wsdl.Shed>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "searchSheds", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchSheds")
+    @ResponseWrapper(localName = "searchShedsResponse", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchShedsResponse")
+    @Action(input = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchShedsRequest", output = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchShedsResponse")
+    public List<Shed> searchSheds(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
 
     /**
      * 
@@ -120,6 +150,21 @@ public interface NaturalTuristWebService {
     public User searchUser(
         @WebParam(name = "arg0", targetNamespace = "")
         Integer arg0);
+
+    /**
+     * 
+     * @param arg0
+     * @return
+     *     returns java.util.List<introsde.client.naturalturist.wsdl.User>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "searchUsers", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchUsers")
+    @ResponseWrapper(localName = "searchUsersResponse", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchUsersResponse")
+    @Action(input = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchUsersRequest", output = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchUsersResponse")
+    public List<User> searchUsers(
+        @WebParam(name = "arg0", targetNamespace = "")
+        String arg0);
 
     /**
      * 
@@ -258,50 +303,5 @@ public interface NaturalTuristWebService {
     public Suggestion getSuggestion(
         @WebParam(name = "arg0", targetNamespace = "")
         Integer arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<introsde.client.naturalturist.wsdl.Park>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "searchParks", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchParks")
-    @ResponseWrapper(localName = "searchParksResponse", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchParksResponse")
-    @Action(input = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchParksRequest", output = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchParksResponse")
-    public List<Park> searchParks(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<introsde.client.naturalturist.wsdl.Shed>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "searchSheds", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchSheds")
-    @ResponseWrapper(localName = "searchShedsResponse", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchShedsResponse")
-    @Action(input = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchShedsRequest", output = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchShedsResponse")
-    public List<Shed> searchSheds(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
-
-    /**
-     * 
-     * @param arg0
-     * @return
-     *     returns java.util.List<introsde.client.naturalturist.wsdl.User>
-     */
-    @WebMethod
-    @WebResult(targetNamespace = "")
-    @RequestWrapper(localName = "searchUsers", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchUsers")
-    @ResponseWrapper(localName = "searchUsersResponse", targetNamespace = "http://soap.orchestrator.APP4.introsde/", className = "introsde.client.naturalturist.wsdl.SearchUsersResponse")
-    @Action(input = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchUsersRequest", output = "http://soap.orchestrator.APP4.introsde/NaturalTuristWebService/searchUsersResponse")
-    public List<User> searchUsers(
-        @WebParam(name = "arg0", targetNamespace = "")
-        String arg0);
 
 }

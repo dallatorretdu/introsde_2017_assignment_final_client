@@ -48,7 +48,6 @@ public class SetUserPreference {
      *     
      */
     public Integer getArg0() {
-    	System.out.println("ARG0 "+this.arg0);
         return arg0;
     }
 
@@ -62,7 +61,6 @@ public class SetUserPreference {
      */
     public void setArg0(Integer value) {
         this.arg0 = value;
-        System.out.println("ARG0 "+this.arg0);
     }
 
     /**
@@ -70,7 +68,6 @@ public class SetUserPreference {
      * 
      */
     public boolean isArg1() {
-    	System.out.println("ARG1 "+this.arg1);
         return arg1;
     }
 
@@ -80,7 +77,6 @@ public class SetUserPreference {
      */
     public void setArg1(boolean value) {
         this.arg1 = value;
-        System.out.println("ARG1 "+this.arg1);
     }
 
     /**
@@ -88,7 +84,6 @@ public class SetUserPreference {
      * 
      */
     public boolean isArg2() {
-    	System.out.println("ARG2 "+this.arg2);
         return arg2;
     }
 
@@ -98,8 +93,6 @@ public class SetUserPreference {
      */
     public void setArg2(boolean value) {
         this.arg2 = value;
-
-        System.out.println("ARG2 "+this.arg2);
     }
 
 }
