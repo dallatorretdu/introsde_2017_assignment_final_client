@@ -6,6 +6,7 @@ import java.util.Scanner;
 import introsde.client.naturalturist.wsdl.NaturalTuristImplService;
 import introsde.client.naturalturist.wsdl.NaturalTuristWebService;
 import introsde.client.naturalturist.wsdl.Park;
+import introsde.client.naturalturist.wsdl.PlaceVisited;
 import introsde.client.naturalturist.wsdl.Review;
 import introsde.client.naturalturist.wsdl.Shed;
 import introsde.client.naturalturist.wsdl.User;
@@ -32,60 +33,111 @@ class Console {
 			System.out.println("$ 'search', 'visit', 'review':");
 			String choice=scanner.nextLine();
 			if(choice.toLowerCase().contains("search")) {
-				System.out.println("$ 'park', 'shed', 'user':");
-				String selection=scanner.nextLine();
-				if(selection.toLowerCase().contains("park")) {
-					System.out.println("Enter park name or ID to search:");		
-					if(scanner.hasNextInt()) {
-						Integer parkID = scanner.nextInt();
-						scanner.nextLine();
-						Park park = ws.searchPark(parkID);
-						System.out.println("     Name: "+park.getNome()+" - "+park.getSuperficie()+"hectare, "+park.getProvincie()+" -- "+park.getComuni());
-						System.out.println("       Rated " + ws.getParkVote(parkID) );
-						List<Review> reviews = ws.getParkReviews(parkID);
-						for (Review review : reviews) {
-							System.out.println("       REVIEW -"+review.getVote()+"- "+review.getReview());
-						}
-						
-					}
-					else {
-						String name = scanner.nextLine();
-						List<Park> parks = ws.searchParks(name);
-						System.out.println("Found "+parks.size()+" results.");
-						for (Park park : parks) {
-							System.out.println("    ID: " + park.getId() + " Name: " + park.getNome()+" - "+park.getSuperficie()+"hectare, " + park.getProvincie()+ " -- " + park.getComuni());
-						}
-					}
-				}
-				else if(selection.toLowerCase().contains("shed")) {
-					System.out.println("Enter shed name or ID to search:");		
-					if(scanner.hasNextInt()) {
-						Integer shedID = scanner.nextInt();
-						scanner.nextLine();
-						Shed shed = ws.searchShed(shedID);
-						System.out.println("     Name: "+shed.getNome()+", "+shed.getRegione()+", "+shed.getLocalita()+", "+shed.getComune()+" ALT:"+shed.getQuota()+"m");
-						System.out.println("       Rated " + ws.getShedVote(shedID) );
-						List<Review> reviews = ws.getShedReviews(shedID);
-						for (Review review : reviews) {
-							System.out.println("       REVIEW -"+review.getVote()+"- "+review.getReview());
-						}
-						
-					}
-					else {
-						String name = scanner.nextLine();
-						List<Shed> sheds = ws.searchSheds(name);
-						System.out.println("Found "+sheds.size()+" results.");
-						for (Shed shed : sheds) {
-							System.out.println("    ID: " + shed.getId() + " Name: " + shed.getNome() + ", " + shed.getRegione()+ " -- " + shed.getComune());
-						}
-					}
-				}
-				else if(selection.toLowerCase().contains("user")) {
-					searchUser();
-				}
+				searchStuff();
+			}
+			else if(choice.toLowerCase().contains("visit")) {
+				addRankedVisit();
+			}
+			else if(choice.toLowerCase().contains("review")) {
+				
 			}
 		}
 		
+	}
+
+	private static void addRankedVisit() {
+		System.out.println("$ 'park', 'shed':");
+		String selection=scanner.nextLine();
+		if(selection.toLowerCase().contains("park")) {
+			System.out.println("$ Park ID:");
+			Integer parkID=scanner.nextInt();
+			scanner.nextLine();
+			PlaceVisited visit = new PlaceVisited();
+			visit.setIdPark(parkID);
+			System.out.println("$ Vote? +1 or -1");
+			visit.setVote(((scanner.nextInt()>0) ? 1 : -1));
+			scanner.nextLine();
+			ws.addVote(parkID, visit);
+		}
+		else if(selection.toLowerCase().contains("shed")) {
+			System.out.println("$ Shed ID:");
+			Integer shedID=scanner.nextInt();
+			scanner.nextLine();
+			PlaceVisited visit = new PlaceVisited();
+			visit.setIdShed(shedID);
+			System.out.println("$ Vote? +1 or -1");
+			visit.setVote(((scanner.nextInt()>0) ? 1 : -1));
+			scanner.nextLine();
+			ws.addVote(shedID, visit);
+		}
+	}
+
+	private static void searchStuff() {
+		System.out.println("$ 'park', 'shed', 'user':");
+		String selection=scanner.nextLine();
+		if(selection.toLowerCase().contains("park")) {
+			System.out.println("Enter park name or ID to search:");		
+			if(scanner.hasNextInt()) {
+				Integer parkID = scanner.nextInt();
+				scanner.nextLine();
+				getParkAndReview(parkID);
+			}
+			else {
+				String name = scanner.nextLine();
+				searchParks(name);
+			}
+		}
+		else if(selection.toLowerCase().contains("shed")) {
+			System.out.println("Enter shed name or ID to search:");		
+			if(scanner.hasNextInt()) {
+				Integer shedID = scanner.nextInt();
+				scanner.nextLine();
+				getShedAndReview(shedID);
+			}
+			else {
+				String name = scanner.nextLine();
+				searchSheds(name);
+			}
+		}
+		else if(selection.toLowerCase().contains("user")) {
+			searchUser();
+		}
+	}
+
+	private static void searchSheds(String name) {
+		List<Shed> sheds = ws.searchSheds(name);
+		System.out.println("Found "+sheds.size()+" results.");
+		for (Shed shed : sheds) {
+			System.out.println("    ID: " + shed.getId() + " Name: " + shed.getNome() + ", " + shed.getRegione()+ " -- " + shed.getComune());
+		}
+	}
+
+	private static void searchParks(String name) {
+		List<Park> parks = ws.searchParks(name);
+		System.out.println("Found "+parks.size()+" results.");
+		for (Park park : parks) {
+			System.out.println("    ID: " + park.getId() + " Name: " + park.getNome()+" - "+park.getSuperficie()+"hectare, " + park.getProvincie()+ " -- " + park.getComuni());
+		}
+	}
+
+	private static void getShedAndReview(Integer shedID) {
+		Shed shed = ws.searchShed(shedID);
+		System.out.println("     Name: "+shed.getNome()+", "+shed.getRegione()+", "+shed.getLocalita()+", "+shed.getComune()+" ALT:"+shed.getQuota()+"m");
+		System.out.println("       Rated " + ws.getShedVote(shedID) );
+		List<Review> reviews = ws.getShedReviews(shedID);
+		for (Review review : reviews) {
+			System.out.println("       REVIEW -"+review.getVote()+"- "+review.getReview());
+		}
+	}
+
+	private static void getParkAndReview(Integer parkID) {
+		Park park = ws.searchPark(parkID);
+		System.out.println("     Name: "+park.getNome()+" - "+park.getSuperficie()+"hectare, "+park.getProvincie()+" -- "+park.getComuni());
+		System.out.println("       Rated " + ws.getParkVote(parkID) );
+		List<Review> reviews = ws.getParkReviews(parkID);
+		for (Review review : reviews) {
+			System.out.println("       REVIEW -"+review.getVote()+"- "+review.getReview());
+		}
 	}
 
 	private static User registerAndLogInUser() {
