@@ -14,13 +14,14 @@ import introsde.client.naturalturist.wsdl.User;
 class Console {
 	private static NaturalTuristWebService ws;
 	private static Scanner scanner;
+	private static User loggedUser;
 	
 	public static void main(String args[]){
 		NaturalTuristImplService service = new NaturalTuristImplService();
         ws = service.getNaturalTuristImplPort();
         
 		scanner = new Scanner(System.in);
-		User loggedUser = null;
+		loggedUser = null;
 		
 		if(userWantsToRegister()) {
 			loggedUser = registerAndLogInUser();
@@ -39,10 +40,41 @@ class Console {
 				addRankedVisit();
 			}
 			else if(choice.toLowerCase().contains("review")) {
-				
+				addReview();
 			}
 		}
 		
+	}
+
+	private static void addReview() {
+		System.out.println("$ 'park', 'shed':");
+		String selection=scanner.nextLine();
+		if(selection.toLowerCase().contains("park")) {
+			System.out.println("$ Park ID:");
+			Integer parkID=scanner.nextInt();
+			scanner.nextLine();
+			Review review = new Review();
+			review.setIdPark(parkID);
+			System.out.println("$ Vote? 0-5");
+			review.setVote(scanner.nextInt());
+			scanner.nextLine();
+			System.out.println("$ Write a review:");
+			review.setReview(scanner.nextLine());
+			ws.postReview(loggedUser.getId(), review);
+		}
+		else if(selection.toLowerCase().contains("shed")) {
+			System.out.println("$ Shed ID:");
+			Integer shedID=scanner.nextInt();
+			scanner.nextLine();
+			Review review = new Review();
+			review.setIdShed(shedID);
+			System.out.println("$ Vote? 0-5");
+			review.setVote(scanner.nextInt());
+			scanner.nextLine();
+			System.out.println("$ Write a review:");
+			review.setReview(scanner.nextLine());
+			ws.postReview(loggedUser.getId(), review);
+		}
 	}
 
 	private static void addRankedVisit() {
@@ -57,7 +89,7 @@ class Console {
 			System.out.println("$ Vote? +1 or -1");
 			visit.setVote(((scanner.nextInt()>0) ? 1 : -1));
 			scanner.nextLine();
-			ws.addVote(parkID, visit);
+			ws.addVote(loggedUser.getId(), visit);
 		}
 		else if(selection.toLowerCase().contains("shed")) {
 			System.out.println("$ Shed ID:");
@@ -68,7 +100,7 @@ class Console {
 			System.out.println("$ Vote? +1 or -1");
 			visit.setVote(((scanner.nextInt()>0) ? 1 : -1));
 			scanner.nextLine();
-			ws.addVote(shedID, visit);
+			ws.addVote(loggedUser.getId(), visit);
 		}
 	}
 
