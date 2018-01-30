@@ -9,6 +9,8 @@ import introsde.client.naturalturist.wsdl.Park;
 import introsde.client.naturalturist.wsdl.PlaceVisited;
 import introsde.client.naturalturist.wsdl.Review;
 import introsde.client.naturalturist.wsdl.Shed;
+import introsde.client.naturalturist.wsdl.SuggestedItem;
+import introsde.client.naturalturist.wsdl.Suggestion;
 import introsde.client.naturalturist.wsdl.User;
 
 class Console {
@@ -31,7 +33,7 @@ class Console {
 		}
 		
 		while(true) {
-			System.out.println("$ 'search', 'visit', 'review':");
+			System.out.println("$ 'search', 'visit', 'review', 'suggestion':");
 			String choice=scanner.nextLine();
 			if(choice.toLowerCase().contains("search")) {
 				searchStuff();
@@ -42,8 +44,27 @@ class Console {
 			else if(choice.toLowerCase().contains("review")) {
 				addReview();
 			}
+			else if(choice.toLowerCase().contains("suggestion")) {
+				getUserSuggestions();
+			}
 		}
 		
+	}
+
+	private static void getUserSuggestions() {
+		Suggestion suggestion = ws.getSuggestion(loggedUser.getId());
+		System.out.println("     "+suggestion.getMessage());
+		for (SuggestedItem item : suggestion.getSuggestedItems()) {
+			System.out.println("      "+item.getReason());
+			if(item.getPark() != null) {
+				Park park = item.getPark();
+				System.out.println("    PARK: " + park.getId() + " Name: " + park.getNome()+" - "+park.getSuperficie()+" hec., " + park.getProvincie()+ " -- " + park.getComuni());
+			}
+			else if(item.getShed() != null) {
+				Shed shed = item.getShed();
+				System.out.println("    SHED: " + shed.getId() + " Name: " + shed.getNome() + ", " + shed.getRegione()+ " -- " + shed.getComune());
+			}
+		}
 	}
 
 	private static void addReview() {
@@ -148,7 +169,7 @@ class Console {
 		List<Park> parks = ws.searchParks(name);
 		System.out.println("Found "+parks.size()+" results.");
 		for (Park park : parks) {
-			System.out.println("    ID: " + park.getId() + " Name: " + park.getNome()+" - "+park.getSuperficie()+"hectare, " + park.getProvincie()+ " -- " + park.getComuni());
+			System.out.println("    ID: " + park.getId() + " Name: " + park.getNome()+" - "+park.getSuperficie()+" hectars, " + park.getProvincie()+ " -- " + park.getComuni());
 		}
 	}
 
