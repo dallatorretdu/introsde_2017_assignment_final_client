@@ -71,46 +71,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link PlaceVisited }
-     * 
-     */
-    public PlaceVisited createPlaceVisited() {
-        return new PlaceVisited();
-    }
-
-    /**
-     * Create an instance of {@link Review }
-     * 
-     */
-    public Review createReview() {
-        return new Review();
-    }
-
-    /**
-     * Create an instance of {@link Preference }
-     * 
-     */
-    public Preference createPreference() {
-        return new Preference();
-    }
-
-    /**
-     * Create an instance of {@link User }
-     * 
-     */
-    public User createUser() {
-        return new User();
-    }
-
-    /**
-     * Create an instance of {@link Shed }
-     * 
-     */
-    public Shed createShed() {
-        return new Shed();
-    }
-
-    /**
      * Create an instance of {@link Park }
      * 
      */
@@ -436,6 +396,46 @@ public class ObjectFactory {
      */
     public Suggestion createSuggestion() {
         return new Suggestion();
+    }
+
+    /**
+     * Create an instance of {@link PlaceVisited }
+     * 
+     */
+    public PlaceVisited createPlaceVisited() {
+        return new PlaceVisited();
+    }
+
+    /**
+     * Create an instance of {@link Review }
+     * 
+     */
+    public Review createReview() {
+        return new Review();
+    }
+
+    /**
+     * Create an instance of {@link Preference }
+     * 
+     */
+    public Preference createPreference() {
+        return new Preference();
+    }
+
+    /**
+     * Create an instance of {@link User }
+     * 
+     */
+    public User createUser() {
+        return new User();
+    }
+
+    /**
+     * Create an instance of {@link Shed }
+     * 
+     */
+    public Shed createShed() {
+        return new Shed();
     }
 
     /**

@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "NaturalTuristImplService", targetNamespace = "http://soap.orchestrator.APP4.introsde/", wsdlLocation = "http://introsde-final-orchestrator1.herokuapp.com/naturalturist?wsdl")
+@WebServiceClient(name = "NaturalTuristImplService", targetNamespace = "http://soap.orchestrator.APP4.introsde/", wsdlLocation = "http://localhost:6901/app4/naturalturist?wsdl")
 public class NaturalTuristImplService
     extends Service
 {
@@ -30,7 +30,7 @@ public class NaturalTuristImplService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://introsde-final-orchestrator1.herokuapp.com/naturalturist?wsdl");
+            url = new URL("http://localhost:6901/app4/naturalturist?wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

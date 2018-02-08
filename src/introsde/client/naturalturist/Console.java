@@ -13,7 +13,7 @@ import introsde.client.naturalturist.wsdl.SuggestedItem;
 import introsde.client.naturalturist.wsdl.Suggestion;
 import introsde.client.naturalturist.wsdl.User;
 
-class Console {
+public class Console {
 	private static NaturalTuristWebService ws;
 	private static Scanner scanner;
 	private static User loggedUser;
